@@ -7,6 +7,7 @@ using Mission11_Fowler.Models.ViewModels;
 
 namespace Mission11_Fowler.Infrastructure
 {
+    // Defines this tag helper to target <div> elements with page-model attribute
     [HtmlTargetElement("div", Attributes="page-model")]
     public class PaginationTagHelper : TagHelper
     {
@@ -17,8 +18,8 @@ namespace Mission11_Fowler.Infrastructure
             urlHelperFactory = temp;
         }
 
-        [ViewContext]
-        [HtmlAttributeNotBound]
+        [ViewContext] // Specifies that this property provides the ViewContext for the tag helper
+        [HtmlAttributeNotBound] // Indicates that this property is not a bound attribute
         public ViewContext? ViewContext { get; set; }
         public string? PageAction { get; set; }
         public PaginationInfo PageModel { get; set; }
@@ -37,7 +38,7 @@ namespace Mission11_Fowler.Infrastructure
 
                 for (int i = 1; i <= PageModel.TotalNumPages; i++)
                 {
-                    TagBuilder tag = new TagBuilder("a");
+                    TagBuilder tag = new TagBuilder("a"); // Create an <a> tag builder for pagination link
                     tag.Attributes["href"] = urlHelper.Action(PageAction, new {pageNum = i});
 
                     if (PageClassesEnabled)
@@ -48,7 +49,7 @@ namespace Mission11_Fowler.Infrastructure
 
                     tag.InnerHtml.Append(i.ToString());
 
-                    result.InnerHtml.AppendHtml(tag);
+                    result.InnerHtml.AppendHtml(tag); // Set the page number as inner HTML of the link
                 }
 
                 output.Content.AppendHtml(result.InnerHtml);

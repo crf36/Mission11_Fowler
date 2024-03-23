@@ -19,6 +19,7 @@ namespace Mission11_Fowler.Controllers
 
             var bookData = new BooksListViewModel
             {
+                // Defines the two pieces of data we want to pass in. Also defines how many elements per page.
                 Books = _repo.Books
                     .OrderBy(x => x.Title)
                     .Skip((pageNum - 1) * pageSize)
